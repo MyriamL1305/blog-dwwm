@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\View\View;
+use Illuminate\Database\QueryException;
 
 // On importe le modèle Category pour pouvoir aller chercher les catégories en base de données.
 
@@ -11,7 +12,7 @@ class CategoryController extends Controller
 {
     public function index() : View
     {
-        $categories = Category::paginate(10);
+        $categories = Category::withCount('articles')->paginate(10);
         // Category::paginate()10 récupère 10 lignes de la table categories
         // et les transforme en une collection d'objets Category pour faire la pagination.
 
@@ -21,5 +22,16 @@ class CategoryController extends Controller
         // On renvoie la vue "categories/index.blade.php" (le point remplace le slash
         // dans le chemin du dossier resources/views), en lui transmettant la variable
         // $categories pour qu'elle puisse s'en servir dans le HTML.
+    }
+
+
+    public function destroy(Category $category)
+    {
+        try {
+            $category->delete();
+            return redirect()->route('categories-list')->with('success', 'Catégorie supprimée.');
+        } catch (QueryException $e) {
+            return redirect()->route('categories-list')->with('error', 'Impossible de supprimer cette catégorie : des articles y sont encore associés.');
+        }
     }
 }
