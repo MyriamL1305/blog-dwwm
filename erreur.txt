@@ -1,0 +1,28 @@
+
+   INFO  Seeding database.  
+
+  Database\Seeders\CategorySeeder ....................................................... RUNNING  
+
+   Error 
+
+  Class "Database\Seeders\Category" not found
+
+  at database/seeders/CategorySeeder.php:15
+     11▕      * Run the database seeds.
+     12▕      */
+     13▕     public function run(): void
+     14▕ {
+  ➜  15▕     Category::factory(10)->create();
+     16▕ }
+     17▕ }
+     18▕
+
+      [2m+8 vendor frames [22m
+
+  9   database/seeders/DatabaseSeeder.php:19
+      Illuminate\Database\Seeder::call("Database\Seeders\CategorySeeder")
+      [2m+25 vendor frames [22m
+
+  35  artisan:16
+      Illuminate\Foundation\Application::handleCommand(Object(Symfony\Component\Console\Input\ArgvInput))
+
