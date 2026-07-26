@@ -19,4 +19,10 @@ Route::delete('/categories/{category}', [CategoryController::class, 'destroy'])-
 
 
 //Route pour Article
-Route::get('articles', [ArticleController::class, 'index'])->name('articles-list');
+Route::get('articles',Route::get('/admin/articles', [ArticleController::class, 'adminIndex'])->name('admin-articles-list');
+
+//Route pour admin-article
+Route::get('/admin/articles/create', [ArticleController::class, 'create'])->name('admin-articles-create');
+Route::post('/admin/articles', [ArticleController::class, 'store'])->name('admin-articles-store');
+Route::delete('/admin/articles/{article}', [ArticleController::class, 'destroy'])->name('admin-articles-destroy');
+Route::patch('/admin/articles/{article}/publish', [ArticleController::class, 'publish'])->name('admin-articles-publish'); [ArticleController::class, 'index'])->name('articles-list');
